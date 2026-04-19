@@ -45,7 +45,7 @@ for (const file of readdirSync('./posts-src')) {
 // Generate blog/index.html listing
 const listItems = posts
   .sort((a, b) => new Date(b.date) - new Date(a.date))
-  .map(p => `<li><time>${p.date}</time> <a href="${p.slug}.html">${p.title}</a></li>`)
+  .map(p => `<li><time>${p.date}</time> <a href="posts/${p.slug}.html">${p.title}</a></li>`)
   .join('\n');
 
 writeFileSync('./blog/index.html', `<!DOCTYPE html>
