@@ -7,11 +7,11 @@ const template = (title, content, date) => `<!DOCTYPE html>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>${title}</title>
-  <link rel="stylesheet" href="/style.css">
-  <link rel="stylesheet" href="/blog/blog.css">
+  <link rel="stylesheet" href="../../style.css">
+  <link rel="stylesheet" href="../blog.css">
 </head>
 <body>
-  <nav><a class="top-buttons" href="/">← home</a> <a class="top-buttons" href="/blog/">← blog</a></nav>
+  <nav><a class="top-buttons" href="../../">← home</a> <a class="top-buttons" href="../">← blog</a></nav>
   <article>
     <h1>${title}</h1>
     <time>${date}</time>
@@ -45,7 +45,7 @@ for (const file of readdirSync('./posts-src')) {
 // Generate blog/index.html listing
 const listItems = posts
   .sort((a, b) => new Date(b.date) - new Date(a.date))
-  .map(p => `<li><time>${p.date}</time> <a href="/blog/posts/${p.slug}.html">${p.title}</a></li>`)
+  .map(p => `<li><time>${p.date}</time> <a href="${p.slug}.html">${p.title}</a></li>`)
   .join('\n');
 
 writeFileSync('./blog/index.html', `<!DOCTYPE html>
@@ -53,12 +53,12 @@ writeFileSync('./blog/index.html', `<!DOCTYPE html>
 <head>
   <meta charset="UTF-8">
   <title>Blog</title>
-  <link rel="stylesheet" href="/blog/blog.css">
+  <link rel="stylesheet" href="blog.css">
 </head>
 <body>
-  <nav><a class="top-buttons" href="/index.html">← home</a></nav>
+  <nav><a class="top-buttons" href="../index.html">← home</a></nav>
   <h1>Blog</h1>
-  <a class="post-list">${listItems}</a>
+  <ul class="post-list">${listItems}</ul>
 </body>
 </html>`);
 
