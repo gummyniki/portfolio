@@ -53,11 +53,10 @@ writeFileSync('./blog/index.html', `<!DOCTYPE html>
 <head>
   <meta charset="UTF-8">
   <title>Blog</title>
-  <link rel="stylesheet" href="/style.css">
   <link rel="stylesheet" href="/blog/blog.css">
 </head>
 <body>
-  <nav><a class="top-buttons" href="/">← home</a></nav>
+  <nav><a class="top-buttons" href="/index.html">← home</a></nav>
   <h1>Blog</h1>
   <a class="post-list">${listItems}</a>
 </body>
