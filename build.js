@@ -59,6 +59,9 @@ writeFileSync('./blog/index.html', `<!DOCTYPE html>
   <nav><a class="top-buttons" href="../index.html">← home</a></nav>
   <h1>Blog</h1>
   <ul class="post-list">${listItems}</ul>
+  <footer>
+    <p>© 2026 Technick</p>
+  </footer>
 </body>
 </html>`);
 

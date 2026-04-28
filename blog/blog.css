@@ -57,20 +57,30 @@ article {
 
 time {
   font-size: 0.85rem;
+  margin-right: 10px;
   opacity: 0.6;
 }
 
 .post-list {
+  font-size: larger;
   list-style: none;
-  color: rgb(255, 254, 254);
   padding: 30px;
-}
+  margin-top: 1em;
 
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+footer {
+  text-align: center;
+  margin-top: 90rem;
+  font-size: 0.9rem;
+  color: #aaa;
+}
 
 .post-list li:link {
   display: flex;
   gap: 1.5rem;
-  margin-bottom: 1rem;
 }
 
 article pre {
