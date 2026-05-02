@@ -4,14 +4,44 @@
   <meta charset="UTF-8">
   <title>Blog</title>
   <link rel="stylesheet" href="blog.css">
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
 </head>
 <body>
   <nav><a class="top-buttons" href="../index.html">← home</a></nav>
-  <h1>Blog</h1>
-  <ul class="post-list"><li><time>2026-4-28</time> <a href="posts/physics-hell.html">Physics engine hell</a></li>
-<li><time>2026-4-18</time> <a href="posts/first-devlog.html">I'm making a game engine!</a></li></ul>
+  <h1 data-aos="fade-up" >Blog</h1>
+  
+    <ul data-aos="fade-up" class="post-list">
+      <li>
+        <time>2026-5-2</time> 
+        <a href="posts/the-future.html">The Future</a>
+      </li>
+    </ul>
+  
+
+    <ul data-aos="fade-up" class="post-list">
+      <li>
+        <time>2026-4-28</time> 
+        <a href="posts/physics-hell.html">Physics engine hell</a>
+      </li>
+    </ul>
+  
+
+    <ul data-aos="fade-up" class="post-list">
+      <li>
+        <time>2026-4-18</time> 
+        <a href="posts/first-devlog.html">I'm making a game engine!</a>
+      </li>
+    </ul>
+  
   <footer>
     <p>© 2026 Technick</p>
   </footer>
+
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      once: true
+    });
+  </script>
 </body>
 </html>

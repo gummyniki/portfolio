@@ -61,16 +61,23 @@ time {
   opacity: 0.6;
 }
 
-.post-list {
-  font-size: larger;
+.post-list li {
+  font-size: 1.4rem;
   list-style: none;
   padding: 30px;
   margin-top: 1em;
 
-  display: flex;
+  display: inline-block;
   flex-direction: column;
   gap: 1rem;
+
+  transition: transform 0.3s ease-in-out;
 }
+
+.post-list li:hover {
+  transform: scale(1.15);
+}
+
 footer {
   text-align: center;
   margin-top: 90rem;

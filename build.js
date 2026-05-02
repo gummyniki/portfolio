@@ -9,14 +9,22 @@ const template = (title, content, date) => `<!DOCTYPE html>
   <title>${title}</title>
   <link rel="stylesheet" href="../../style.css">
   <link rel="stylesheet" href="../blog.css">
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
 </head>
 <body>
   <nav><a class="top-buttons" href="../../">← home</a> <a class="top-buttons" href="../">← blog</a></nav>
   <article>
-    <h1>${title}</h1>
-    <time>${date}</time>
+    <h1 data-aos="fade-down">${title}</h1>
+    <time data-aos="zoom-out">${date}</time>
     ${content}
   </article>
+
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      once: true
+    });
+  </script>
 </body>
 </html>`;
 
@@ -27,9 +35,6 @@ for (const file of readdirSync('./posts-src')) {
 
   const raw = readFileSync(`./posts-src/${file}`, 'utf-8');
 
-  // Expects a frontmatter-style header at the top:
-  // title: My Post Title
-  // date: 2025-04-18
   const lines = raw.split('\n');
   const title = lines[0].replace('title: ', '').trim();
   const date  = lines[1].replace('date: ', '').trim();
@@ -42,10 +47,16 @@ for (const file of readdirSync('./posts-src')) {
   posts.push({ title, date, slug });
 }
 
-// Generate blog/index.html listing
-const listItems = posts
+const lists = posts
   .sort((a, b) => new Date(b.date) - new Date(a.date))
-  .map(p => `<li><time>${p.date}</time> <a href="posts/${p.slug}.html">${p.title}</a></li>`)
+  .map(p => `
+    <ul data-aos="fade-up" class="post-list">
+      <li>
+        <time>${p.date}</time> 
+        <a href="posts/${p.slug}.html">${p.title}</a>
+      </li>
+    </ul>
+  `)
   .join('\n');
 
 writeFileSync('./blog/index.html', `<!DOCTYPE html>
@@ -54,14 +65,22 @@ writeFileSync('./blog/index.html', `<!DOCTYPE html>
   <meta charset="UTF-8">
   <title>Blog</title>
   <link rel="stylesheet" href="blog.css">
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
 </head>
 <body>
   <nav><a class="top-buttons" href="../index.html">← home</a></nav>
-  <h1>Blog</h1>
-  <ul class="post-list">${listItems}</ul>
+  <h1 data-aos="fade-up" >Blog</h1>
+  ${lists}
   <footer>
     <p>© 2026 Technick</p>
   </footer>
+
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      once: true
+    });
+  </script>
 </body>
 </html>`);
 

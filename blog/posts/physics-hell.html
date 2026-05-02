@@ -6,12 +6,13 @@
   <title>Physics engine hell</title>
   <link rel="stylesheet" href="../../style.css">
   <link rel="stylesheet" href="../blog.css">
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
 </head>
 <body>
   <nav><a class="top-buttons" href="../../">← home</a> <a class="top-buttons" href="../">← blog</a></nav>
   <article>
-    <h1>Physics engine hell</h1>
-    <time>2026-4-28</time>
+    <h1 data-aos="fade-down">Physics engine hell</h1>
+    <time data-aos="zoom-out">2026-4-28</time>
     <p>Hello everyone! Welcome back to my second devlog! Today I will talk about Physics Engines, how im <em>currently</em> trying to implement one and the issues I&#39;m having.</p>
 <hr>
 <p>So At first I had to choose a physics engine to use, since I do <strong>not</strong> want to make one myself. 
@@ -53,5 +54,12 @@ It <strong>also</strong> seemed to have a horizontal offset, but I also couldn&#
 <h2>Engine Github page <a href="https://github.com/gummyniki/Liminal">here</a></h2>
 
   </article>
+
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      once: true
+    });
+  </script>
 </body>
 </html>
