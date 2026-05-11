@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Journey's end</title>
+  <link rel="stylesheet" href="../../style.css">
+  <link rel="stylesheet" href="../blog.css">
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+  <nav><a class="top-buttons" href="../../">← home</a> <a class="top-buttons" href="../">← blog</a></nav>
+  <article>
+    <h1 data-aos="fade-down">Journey's end</h1>
+    <time data-aos="zoom-out">2026-5-11</time>
+    <p>Hello everyone, today will be my <strong>last devlog</strong> about my game engine. I will talk about how I fixed the remaining bugs in my engine, why I think this is a good place to end it off and what my next project will be. Let&#39;s get started</p>
+<hr>
+<p>Starting with the bugs, I had <strong>2 remaining issues</strong>:</p>
+<ol>
+<li><strong>A rendering and physics position mismatch</strong></li>
+<li><strong>Wrong terrain collision detection</strong></li>
+</ol>
+<p><strong>Physics Position Mismatch</strong></p>
+<p>The physics position mismatch basically meant that i couldn&#39;t update the object&#39;s position manually using code and the physics engine had <em>full</em> control, which screwed up my debug editor.</p>
+<p>The solution was pretty straightforward, instead of manually setting the position of my model&#39;s transform, i had to set the physics&#39; engine transform instead using <strong>Jolt&#39;s</strong> own interface: </p>
+<pre><code class="language-c++">  bodyInterface.SetPosition(...);
+  bodyInterface.SetRotation(...);
+</code></pre>
+<blockquote>
+<p>Actually pretty easy, but it took a bit to figure out.</p>
+</blockquote>
+<p>And that was it for the first bug.</p>
+<hr>
+<p>The second one with the terrain collision isn&#39;t completely fixed, <strong>but I actually do not have the energy to work</strong> on it anymore since I&#39;ve been trying to fix it for more than 2 weeks.</p>
+<p>I&#39;ve gotten it in a decently good spot, the collision is <em>almost</em> correct, but there&#39;s a weird offset applied to the collisions&#39; position, making it not exactly on the terrain mesh. I&#39;ve honestly tried everything and I could not get it to work.</p>
+<blockquote>
+<p><strong>If anyone has experience with this</strong>, I&#39;d greatly appreciate it if you would look in the code and perhaps find the issue, im very curious what&#39;s causing it!</p>
+</blockquote>
+<hr>
+<p>Well, that&#39;s about it for the engine <em>this week, and probably for a long time</em>. This will be my last blog about the game engine, for reasons stated in my last blog.</p>
+<p>It has been my biggest project yet and I&#39;ve learnt a <strong>lot</strong> about: </p>
+<ul>
+<li><strong>Graphics programming</strong></li>
+<li><strong>C++ (memory management, performance)</strong></li>
+<li><strong>Engine arhitecture</strong></li>
+</ul>
+<p>And this begs the question:</p>
+<blockquote>
+<p> <code>What will be my next project?</code></p>
+</blockquote>
+<h3>A compiler!</h3>
+<p>I have a few reasons for this:</p>
+<ul>
+<li>I want to learn how compilers work under the hood</li>
+<li>I think it&#39;s really cool to make your own custom programming language</li>
+<li>It&#39;ll be a good addition to my portfolio</li>
+</ul>
+<p>I&#39;ll be writing it in <strong>C</strong>, one of my favourite languages and a nice breath of fresh air after all that <strong>C++</strong>.</p>
+<p>I&#39;ll go more in-depth about the compiler next blog, when I will also start writing code for it, stay tuned!</p>
+<p>It&#39;s a little bittersweet to move on after all this time, but I know it&#39;s the right call. And for the last time:</p>
+<h2>Engine Github page <a href="https://github.com/gummyniki/Liminal">here</a></h2>
+<hr>
+<p><em>Goodbye everyone, see you next week.</em></p>
+
+  </article>
+
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      once: true
+    });
+  </script>
+</body>
+</html>
