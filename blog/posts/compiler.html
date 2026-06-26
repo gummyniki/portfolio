@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>I built a Programming Language</title>
+  <link rel="stylesheet" href="../../style.css">
+  <link rel="stylesheet" href="../blog.css">
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+  <nav><a class="top-buttons" href="../../">← home</a> <a class="top-buttons" href="../">← blog</a></nav>
+  <article>
+    <h1 data-aos="fade-down">I built a Programming Language</h1>
+    <time data-aos="zoom-out">2026-6-26</time>
+    <p>Hey guys! As promised, here&#39;s the compiler blog.
+If you haven&#39;t read the previous blog, go check it out first,
+this one is going to be a long one.</p>
+<hr>
+<h2>What is Techlang?</h2>
+<p>Techlang is a compiled, statically typed programming language 
+with a C-like syntax and modern features.
+It compiles directly to native binaries using LLVM, 
+the same compiler infrastructure used by languages like Rust, 
+Swift, and Clang.</p>
+<p>Here&#39;s what a basic Techlang program looks like:</p>
+<pre><code class="language-techlang">!import(std.tec) as std;
+
+struct person = {
+    int age;
+    string name;
+}
+
+function greet(person p) returns none {
+    std.print_string(p.name);
+}
+
+function main() returns none {
+    person p;
+    p.age = 25;
+    p.name = &quot;Alice&quot;;
+    greet(p);
+}
+</code></pre>
+<p>The language supports:</p>
+<ul>
+<li>Basic types (int, float, double, char, string, bool)</li>
+<li>Arrays and pointers</li>
+<li>Structs and enums</li>
+<li>Functions with parameters and return types</li>
+<li>If/else, while, and for loops</li>
+<li>A module system with file imports</li>
+<li>A standard library</li>
+</ul>
+<hr>
+<h2>Why did I build this?</h2>
+<p>A while back I had an idea: what if two programming languages 
+could talk to each other natively, with zero overhead?
+Not through some painful FFI system, but as a first class feature.</p>
+<p>I wanted to build two languages that shared the same type system 
+and could call each other&#39;s functions directly.
+That idea stuck with me, and eventually I decided to just start building.</p>
+<p>The first step was making one language that actually works.
+So that&#39;s what this blog is about.</p>
+<hr>
+<h2>How a compiler works</h2>
+<p>Before getting into the details, here&#39;s a quick overview of 
+what a compiler actually does.</p>
+<p>When you write source code and compile it, it goes through 
+several stages:</p>
+<p><strong>1. Lexing</strong> — The source code (raw text) gets broken into tokens.
+<code>int x = 5 + 3;</code> becomes:
+<code>[KW_INT] [IDENTIFIER: x] [EQUALS] [INT_LITERAL: 5] [PLUS] [INT_LITERAL: 3] [SEMICOLON]</code></p>
+<p><strong>2. Parsing</strong> — The tokens get turned into an Abstract Syntax Tree (AST),
+a tree structure that represents the program&#39;s structure.</p>
+<p><strong>3. Semantic Analysis</strong> — The AST gets checked for logical errors —
+type mismatches, undefined variables, wrong number of arguments, etc.</p>
+<p><strong>4. IR Generation</strong> — The AST gets lowered to LLVM IR,
+a portable assembly-like language that LLVM can optimize and 
+compile to any target.</p>
+<p><strong>5. Code Generation</strong> — LLVM takes the IR and produces a native binary.</p>
+<p>I built all of these from scratch in C++.</p>
+<hr>
+<h2>Building the Lexer</h2>
+<p>The lexer was the first thing I built, and honestly the most 
+straightforward part.</p>
+<p>The idea is simple, walk through the source code character by 
+character and group them into tokens. 
+Keywords like <code>int</code> and <code>function</code>, identifiers like variable names, 
+literals like <code>42</code> and <code>&quot;hello&quot;</code>, and operators like <code>+</code> and <code>==</code>.</p>
+<p>The trickiest part was two-character operators like <code>==</code>, <code>+=</code>, <code>!=</code>.
+You need to look one character ahead before deciding what token 
+you&#39;re making — otherwise you&#39;d emit <code>=</code> and then <code>=</code> separately 
+instead of <code>==</code>.</p>
+<hr>
+<h2>Building the Parser</h2>
+<p>The parser takes the flat list of tokens and turns them into a tree.</p>
+<p>I used a <strong>recursive descent parser</strong>, one function per language 
+construct, each calling the others recursively.
+For example, <code>parseStatement()</code> calls <code>parseIfStatement()</code>, 
+which calls <code>parseExpression()</code>, which calls <code>parseAddSub()</code>, 
+which calls <code>parseMulDiv()</code>, and so on.</p>
+<p>The most interesting part of the parser is <strong>operator precedence</strong>.
+Making sure <code>2 + 3 * 4</code> evaluates as <code>2 + (3 * 4)</code> and not 
+<code>(2 + 3) * 4</code> requires splitting expression parsing into multiple 
+layers, one per precedence level.
+Higher precedence operators get parsed deeper in the call chain, 
+which naturally makes them bind tighter.</p>
+<hr>
+<h2>The Semantic Analyzer</h2>
+<p>Once I had an AST, I needed to check that the program actually 
+made sense, not just syntactically, but logically.</p>
+<p>The semantic analyzer walks the AST and checks things like:</p>
+<ul>
+<li>Is this variable declared before it&#39;s used?</li>
+<li>Does this function call have the right number of arguments?</li>
+<li>Are you trying to assign a string to an int?</li>
+<li>Is this variable marked const but being reassigned?</li>
+</ul>
+<p>The core data structure is a <strong>symbol table</strong>, a scoped stack 
+of maps that tracks every declared variable and function.
+When you enter a block, you push a new scope.
+When you leave, you pop it.
+Looking up a variable searches from the innermost scope outward,
+which is how variable shadowing works.</p>
+<hr>
+<h2>LLVM IR Generation</h2>
+<p>This is where things get really interesting.</p>
+<p>LLVM IR is a typed, portable assembly language. 
+Instead of targeting x86 or ARM directly, I lower my AST to LLVM IR 
+and let LLVM handle the rest — optimization, register allocation, 
+machine code generation for any target architecture.</p>
+<p>For example, this Techlang function:</p>
+<pre><code class="language-techlang">function add(int a, int b) returns int {
+    return a + b;
+}
+</code></pre>
+<p>Becomes this LLVM IR:</p>
+<pre><code class="language-llvm">define i32 @add(i32 %a, i32 %b) {
+entry:
+    %a.addr = alloca i32
+    %b.addr = alloca i32
+    store i32 %a, i32* %a.addr
+    store i32 %b, i32* %b.addr
+    %a.val = load i32, i32* %a.addr
+    %b.val = load i32, i32* %b.addr
+    %addtmp = add i32 %a.val, %b.val
+    ret i32 %addtmp
+}
+</code></pre>
+<p>Which then compiles to a native binary that runs directly on your CPU.</p>
+<p>The trickiest part of IR generation was control flow: 
+if statements, while loops, and for loops all require creating 
+multiple <strong>basic blocks</strong> and branching between them.
+A basic block is a straight-line sequence of instructions 
+with no branches in the middle — every block must end with 
+either a return or a branch to another block.</p>
+<p>One bug that took me a while to track down: 
+if a function has an early return inside an if block, 
+the <code>ret</code> instruction acts as the block terminator.
+But my code was then trying to add a <code>br</code> instruction 
+to jump to the merge block — which is invalid because 
+you can&#39;t have two terminators in the same block.
+The fix was to check <code>getTerminator()</code> before adding any branch.</p>
+<hr>
+<h2>The Standard Library</h2>
+<p>Techlang has a standard library (<code>std.tec</code>) that provides 
+basic functions like printing, reading input, math, and casting.</p>
+<p>The implementation was interesting, the standard library is 
+written in C (<code>std.c</code>), compiled to an object file (<code>stdlib.o</code>), 
+and linked with the compiled Techlang program at the end.</p>
+<p>Techlang functions can map to C implementations using the 
+<code>extern</code> keyword:</p>
+<pre><code class="language-techlang">function print_int(int x) returns none extern &quot;tec_print_int&quot; {}
+</code></pre>
+<p>This tells the compiler to call <code>tec_print_int</code> from the C 
+standard library when <code>std.print_int()</code> is called in Techlang.</p>
+<hr>
+<h2>The Module System</h2>
+<p>One of my favourite features is the import system.
+You can split code across multiple <code>.tec</code> files and import them:</p>
+<pre><code class="language-techlang">!import(math.tec) as math;
+
+int result = math.add(3, 4);
+</code></pre>
+<p>When the compiler sees an import, it lexes and parses the 
+imported file, extracts its declarations, prefixes them with 
+the alias (<code>math.add</code>, <code>math.multiply</code>, etc), 
+and injects them into the current program before compilation.</p>
+<p>Since everything ends up in the same LLVM module, 
+cross-file function calls have zero overhead.</p>
+<hr>
+<h2>Hardest Bugs</h2>
+<p>A few bugs that gave me real trouble:</p>
+<p><strong>The opaque pointer problem</strong> — LLVM 17+ removed typed pointers.
+In older LLVM you could ask a pointer &quot;what type do you point to?&quot;
+In newer LLVM, a pointer is just a pointer with no type info attached.
+I had to build a separate <code>pointerTypeScopes</code> system to track 
+pointee types manually throughout compilation.</p>
+<p><strong>The fallthrough bug</strong> — I had two <code>case</code> statements in a switch 
+with missing <code>break</code> statements. 
+When an enum declaration was generated, it fell through into 
+struct instance generation and crashed.
+Classic C++ gotcha that cost me way more time than it should have.</p>
+<p><strong>The array parameter type mismatch</strong> — When passing arrays to 
+functions, LLVM sees a <code>[5 x i32]</code> (fixed size) at the call site 
+but the function signature expects <code>[0 x i32]</code> (unknown size).
+The fix was to treat array parameters as pointers to the element 
+type, which is exactly how C handles it under the hood.</p>
+<p><strong>The std library implementation issue</strong> — At first All std functions were hardcoded
+in the IR generator, which worked for a bit but then started giving a lot of errors, 
+functions like <code>print</code> being declared multiple times, parameter type missmatches,
+and eventually I decided to completely rewrite the std library implementation to use a
+.tec file with all the definitions that connects to a C implementation.</p>
+<hr>
+<h2>What&#39;s next for Techlang?</h2>
+<p>Techlang is just getting started.
+The immediate roadmap includes a VS Code extension for syntax 
+highlighting, more standard library functions, and a package manager.</p>
+<p>But the big one, the reason I started this project in the first 
+place, is still coming.</p>
+<p>I&#39;m planning a <strong>companion GPU compute language</strong> that integrates 
+directly with Techlang.
+The idea is that you write your main logic in Techlang and your 
+parallel compute kernels in the companion language, 
+and they can call each other natively with zero overhead since 
+they both compile to LLVM IR.</p>
+<p>I haven&#39;t seen anyone else do this, and I think it could be 
+genuinely exciting.
+More on that in a future blog.</p>
+<hr>
+<p>That&#39;s about it! This was by far the most complex project I&#39;ve 
+ever built, and also the most rewarding.
+If you&#39;re interested in compilers I highly recommend trying to 
+build one — even a tiny one.
+You&#39;ll learn more about how programming languages actually work 
+than any book or course can teach you.</p>
+<h2>Techlang GitHub page <a href="https://github.com/gummyniki/techlang">here</a></h2>
+
+  </article>
+
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      once: true
+    });
+  </script>
+</body>
+</html>
