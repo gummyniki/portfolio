@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Software Rendering</title>
+  <link rel="stylesheet" href="../../style.css">
+  <link rel="stylesheet" href="../blog.css">
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+  <nav><a class="top-buttons" href="../../">← home</a> <a class="top-buttons" href="../">← blog</a></nav>
+  <article>
+    <h1 data-aos="fade-down">Software Rendering</h1>
+    <time data-aos="zoom-out">2026-6-26</time>
+    <p>Hey guys! It&#39;s been a while hasn&#39;t it? about 3 weeks. There has been a lot of stuff in the works, but this blog is primarily focused on my software renderer I announced last blog.</p>
+<hr>
+<h2>The software renderer</h2>
+<p>I announced last blog that I wanted to make a software renderer, and I did, in a couple of days. it&#39;s not super advanced but for a couple of days i think its good.
+I used <em>C</em> as the language of choice and <em>SDL</em> for windowing and rendering.</p>
+<hr>
+<p>The renderer has 3d rendering, transformations, rotations, scaling, and a camera system.
+Sadly it doesnt support textures, as I didnt have time and the last week I wasn&#39;t at home.</p>
+<h3>Now let me get a bit more technical</h3>
+<hr>
+<p>In case you don&#39;t know, <em>software rendering</em> is a rendering technique that doesn&#39;t need a GPU, and instead manually fills pixels on a framebuffer that then gets presented to the screen.
+That means no shaders, no Graphics API, just an array of pixels.</p>
+<hr>
+<p>At first I started with trying to get a pixel on the screen, which was pretty easy, I then tried getting a line on the screen using <a href="https://en.wikipedia.org/wiki/Bresenham%27s_line_algorithm">Bresenham&#39;s line algorithm</a></p>
+<p>After that I added transformations. At first manually coded the matrices but then I realized that&#39;s not a good idea and used <a href="https://github.com/recp/cglm">cglm</a>.</p>
+<hr>
+<p>After around 2 days I got a rotating line.
+I then started just making shapes so I implemented triangle rendering (which was easy, it&#39;s just 3 lines), and a circle algorithm.</p>
+<p>Then I wrote some cube vertices and indices and rotated it using cglm. Slowly but surely i started having a 3d renderer.</p>
+<p>Of course it still looked 3D since I didn&#39;t have a view matrix, so that&#39;s what I worked on next.
+Once again, it was pretty easy since I had cglm. In a few hours I had an actual camera in 3D space that I could move around.</p>
+<hr>
+<p>The next step was 3D model rendering. I downloaded <a href="https://github.com/tinyobjloader/tinyobjloader">tinyobjloader</a> and a tea cup model.</p>
+<p>Using tinyobjloader I was able to load in the vertices from the .obj file into my program and use my renderer to show them to the screen. I had object laoding!
+But there was still an issue, everything was still a wireframe. So I had to implement an algorithm to fill the triangle.
+This took a while, maybe a whole day but eventually I got it working.</p>
+<p>I was pretty tired but I decided to do one more thing, <strong>depth</strong>. I made a depth buffer in around 2 hours and that was it.</p>
+<hr>
+<p>I know, it&#39;s not a lot but I spent like 4 days on it and I think I learned most things about software rendering.
+There were a few reasons why I stopped working on this project:</p>
+<ol>
+<li>I had to go on vacation so I didn&#39;t have time to work</li>
+<li>I kinda didn&#39;t want to work on the project anymore, it was starting to get kinda boring after doing <em>just</em> rendering for so long</li>
+<li>There was a new project I was starting to think of..</li>
+</ol>
+<p>You might be wondering what that new project is, and I actually talked about before on an older blog.</p>
+<hr>
+<h2>A compiler</h2>
+<p>Yup, that&#39;s right. A compiler.</p>
+<p>I wanted to do it around a month about it if you remember, but I cancelled the idea and did a software renderer. But I&#39;m ready to get back to it.
+In fact, I already have. The past few days I&#39;ve worked on a compiler for my own programming language, and it&#39;s ready for it&#39;s first release.</p>
+<p>The next blog (which will be releasing in a couple of hours!!) will be talking about this compiler and how I built it.</p>
+<hr>
+<p>That was about it. Make sure to check out the software renderer github and the compiler later today!</p>
+<h2>Renderer Github page <a href="https://github.com/gummyniki/software_renderer">here</a></h2>
+
+  </article>
+
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      once: true
+    });
+  </script>
+</body>
+</html>
