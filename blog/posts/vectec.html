@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>I built a GPU compute language</title>
+  <link rel="stylesheet" href="../../style.css">
+  <link rel="stylesheet" href="../blog.css">
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+  <nav><a class="top-buttons" href="../../">← home</a> <a class="top-buttons" href="../">← blog</a></nav>
+  <article>
+    <h1 data-aos="fade-down">I built a GPU compute language</h1>
+    <time data-aos="zoom-out">2026-6-28</time>
+    <p>Hey guys! Big news today: VecTec is officially working.</p>
+<p>If you&#39;ve been following my blog you know I&#39;ve been building 
+Techlang, my own compiled programming language. 
+If you haven&#39;t, go check out the previous blog posts first,
+this one builds on top of everything I&#39;ve already built.</p>
+<hr>
+<h2>What is VecTec?</h2>
+<p>VecTec is a companion language to Techlang that runs code on 
+the GPU instead of the CPU.</p>
+<p>Here&#39;s what it looks like:</p>
+<pre><code>// arrays.vtec — runs on the GPU
+
+kernel addArrays(ArrayOf(float) a, ArrayOf(float) b) returns ArrayOf(float) {
+
+int id = threadId();
+
+return a[id] + b[id];
+
+}
+</code></pre>
+<p>And calling it from Techlang:</p>
+<pre><code>// main.tec — runs on the CPU
+
+!import(std.tec) as std;
+
+!import(arrays.vtec) as gpu;
+function main() returns none {
+
+ArrayOf(float) a = {1.0, 2.0, 3.0, 4.0};
+
+ArrayOf(float) b = {5.0, 6.0, 7.0, 8.0};
+}
+</code></pre>
+<p>That&#39;s it. No CUDA setup. No memory management. 
+No copying data to and from the GPU manually.
+Just write a kernel and call it like a normal function.</p>
+<p>The compiler handles everything automatically.</p>
+<hr>
+<h2>Why does this matter?</h2>
+<p>GPU programming is notoriously painful. 
+Here&#39;s what the equivalent CUDA code looks like:</p>
+<pre><code class="language-c">// the CUDA equivalent — brace yourself
+#include &lt;cuda_runtime.h&gt;
+#include &lt;stdio.h&gt;
+
+__global__ void addArrays(float* a, float* b, float* result, int size) {
+    int id = blockIdx.x * blockDim.x + threadIdx.x;
+    if (id &lt; size) {
+        result[id] = a[id] + b[id];
+    }
+}
+
+int main() {
+    int size = 4;
+    float a[] = {1.0, 2.0, 3.0, 4.0};
+    float b[] = {5.0, 6.0, 7.0, 8.0};
+    float result[4];
+
+    float *d_a, *d_b, *d_result;
+    cudaMalloc(&amp;d_a, size * sizeof(float));
+    cudaMalloc(&amp;d_b, size * sizeof(float));
+    cudaMalloc(&amp;d_result, size * sizeof(float));
+
+    cudaMemcpy(d_a, a, size * sizeof(float), cudaMemcpyHostToDevice);
+    cudaMemcpy(d_b, b, size * sizeof(float), cudaMemcpyHostToDevice);
+
+    addArrays&lt;&lt;&lt;1, size&gt;&gt;&gt;(d_a, d_b, d_result, size);
+
+    cudaMemcpy(result, d_result, size * sizeof(float), 
+               cudaMemcpyDeviceToHost);
+
+    for (int i = 0; i &lt; size; i++) {
+        printf(&quot;%f\n&quot;, result[i]);
+    }
+
+    cudaFree(d_a);
+    cudaFree(d_b);
+    cudaFree(d_result);
+    return 0;
+}
+</code></pre>
+<p>40+ lines of boilerplate vs 15 lines of clean Techlang/VecTec code.
+And this is a simple example — real CUDA programs are much more complex.</p>
+<p>VecTec eliminates all of that.</p>
+<hr>
+<h2>How it works under the hood</h2>
+<p>The magic happens in two stages:</p>
+<p><strong>Stage 1 — VecTec compilation</strong></p>
+<p>When the Techlang compiler sees <code>!import(arrays.vtec) as gpu</code>,
+it automatically invokes the VecTec compiler on the kernel file.</p>
+<p>VecTec uses LLVM&#39;s NVPTX backend to compile the kernel to PTX —
+NVIDIA&#39;s GPU assembly language. 
+This is the same approach used by Julia and other 
+high-performance languages.</p>
+<p><strong>Stage 2 — Runtime wrapper generation</strong></p>
+<p>The compiler then automatically generates a C wrapper that:</p>
+<ul>
+<li>Embeds the PTX as a string constant</li>
+<li>Declares CUDA functions for memory allocation and kernel launching</li>
+<li>Wraps each kernel in a clean C function</li>
+</ul>
+<p>When you call <code>gpu.addArrays(a, b)</code> in Techlang, 
+the compiler generates calls to this wrapper which handles:</p>
+<ol>
+<li>Allocating GPU memory</li>
+<li>Copying data to the GPU</li>
+<li>Launching the kernel with the right number of threads</li>
+<li>Waiting for completion</li>
+<li>Copying results back</li>
+<li>Freeing GPU memory</li>
+</ol>
+<p>All invisible to the programmer.</p>
+<p><strong>Stage 3 — Linking</strong></p>
+<p>The compiled Techlang binary, the GPU wrapper, 
+and the standard library all get linked together into 
+a single native executable that runs on both CPU and GPU.</p>
+<hr>
+<h2>The compiler pipeline</h2>
+<p>arrays.vtec</p>
+<p>↓</p>
+<p>VecTec compiler (LLVM NVPTX backend)</p>
+<p>↓</p>
+<p>arrays.ptx (GPU assembly)</p>
+<p>↓</p>
+<p>Auto-generated C wrapper with embedded PTX</p>
+<p>↓</p>
+<p>nvcc compiles wrapper → arrays_runtime.o
+main.tec</p>
+<p>↓</p>
+<p>Techlang compiler (LLVM x86 backend)</p>
+<p>↓</p>
+<p>main.o
+main.o + arrays_runtime.o + stdlib.o</p>
+<p>↓</p>
+<p>gcc links everything</p>
+<p>↓</p>
+<p>Native binary (runs on CPU + GPU)</p>
+<p>Both languages share the same frontend — 
+the lexer, parser, and semantic analyzer are identical.
+Only the backend differs — x86 for Techlang, NVPTX for VecTec.</p>
+<hr>
+<h2>Building VecTec</h2>
+<p>The hardest parts were:</p>
+<p><strong>The NVPTX target setup</strong></p>
+<p>LLVM&#39;s NVPTX backend works differently from x86.
+Kernels need special metadata annotations to be recognized 
+as GPU entry points, and thread ID registers are accessed 
+through LLVM intrinsics rather than normal function calls.</p>
+<p><strong>The opaque pointer problem (again)</strong></p>
+<p>Modern LLVM uses opaque pointers which means you can&#39;t ask 
+a pointer &quot;what type do you point to?&quot; — you have to track 
+that information yourself. 
+This was tricky for array parameters since the element type 
+needs to be known when generating GEP instructions.</p>
+<p><strong>The CUDA API version</strong></p>
+<p>The CUDA driver API changed <code>cuCtxCreate</code> to require 4 arguments 
+in newer versions instead of 3. 
+This caused a confusing compile error that took a while to track down.</p>
+<p><strong>The automatic size inference</strong></p>
+<p>When you call <code>gpu.addArrays(a, b)</code>, 
+the compiler needs to know how many GPU threads to launch.
+It automatically uses the size of the first array parameter —
+so if <code>a</code> has 4 elements, 4 GPU threads are launched,
+one per element.</p>
+<p><strong>The manual array zise parameter</strong></p>
+<p>When calling <code>gpu.addArrays(a, b)</code>, under the hood CUDA also wants the sizes for both arrays, the actual call would be <code>addArrays(a, aSize, b, bSize)</code>, I had to change the PTX generator to manually put the sizes when generating the function call.</p>
+<hr>
+<h2>What&#39;s next for VecTec?</h2>
+<p>Right now VecTec supports basic kernels with array inputs and outputs.
+The next steps are:</p>
+<ul>
+<li><strong>Shared memory</strong> — fast per-thread-block memory for more 
+complex algorithms</li>
+<li><strong>2D and 3D thread grids</strong> — for matrix operations and image processing</li>
+<li><strong>More built-ins</strong> — <code>blockId()</code>, <code>blockDim()</code> for advanced kernels</li>
+<li><strong>Automatic optimization</strong> — let LLVM&#39;s GPU optimizer do more work</li>
+</ul>
+<hr>
+<h2>Try it yourself</h2>
+<p>Techlang and VecTec are both open source and available on GitHub.
+You&#39;ll need an NVIDIA GPU and the CUDA toolkit installed.</p>
+<h2>GitHub <a href="https://github.com/gummyniki/techlang">here</a></h2>
+
+  </article>
+
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      once: true
+    });
+  </script>
+</body>
+</html>
