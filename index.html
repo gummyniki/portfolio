@@ -4,169 +4,114 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Technick</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="style.css">
   <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
   <link rel="icon" type="image/x-icon" href="favicon.jpg">
   <script src="https://cdn.counter.dev/script.js" data-id="09f2d1ce-a923-4330-b283-82ac5871fc2f" data-utcoffset="3"></script>
-
 </head>
 <body>
   <div class="container">
-    <header>
-      <h1 class="title" data-aos="fade-up">Hey, I'm Nick 👋</h1>
-      <p class="subtitle" data-aos="fade-up">Developer. Project builder.</p>
+    <nav class="site-nav">
+      <a href="/" class="nav-brand">Technick</a>
+      <div class="nav-links">
+        <a href="about.html">About</a>
+        <a href="blog/index.html">Blog</a>
+        <a href="https://github.com/gummyniki" target="_blank">GitHub</a>
+      </div>
+    </nav>
 
-      <h2 class="subsubtitle" data-aos="fade-up">Socials </h2>
+    <!-- Hero uses CSS animations, no AOS -->
+    <section class="hero">
+      <h1>Hey, I'm Nick</h1>
+      <p class="tagline">Developer. Project builder.</p>
       <div class="socials">
-        <a href="https://twitter.com/gummy_niki" data-aos="fade-right" target="_blank">
-          <button class="link-button">Twitter</button>
-        </a>
-        <a href="https://github.com/gummyniki" data-aos="fade-down" target="_blank">
-          <button class="link-button">GitHub</button>
-        </a>
-        <a href="https://youtube.com/@Miere2012" data-aos="fade-left" target="_blank">
-          <button class="link-button">YouTube</button>
-        </a>
+        <a href="https://twitter.com/gummy_niki" target="_blank" class="link-button">Twitter</a>
+        <a href="https://github.com/gummyniki" target="_blank" class="link-button">GitHub</a>
+        <a href="https://youtube.com/@Miere2012" target="_blank" class="link-button">YouTube</a>
       </div>
-    </header>
+    </section>
 
-    <main>
-      <section id="projects">
-        <h2 class="subsubtitle">Projects</h2>
-
-        <div class="project-card" data-aos="zoom-in">
+    <section>
+      <p class="section-label" data-aos="fade-right">Projects</p>
+      <div class="projects-grid">
+        <div class="project-card" data-aos="fade-up" data-aos-delay="0">
           <h3>Liminal</h3>
-          <p>Game engine made in Vulkan</p>
+          <p class="project-desc">Game engine made in Vulkan</p>
           <div class="project-links">
-            <a href="https://github.com/gummyniki/Liminal" target="_blank">
-              <button class="link-button">Liminal GitHub</button>
-            </a>
+            <a href="https://github.com/gummyniki/Liminal" target="_blank" class="link-button">GitHub</a>
           </div>
         </div>
 
-        <div class="project-card" data-aos="zoom-in">
+        <div class="project-card" data-aos="fade-up" data-aos-delay="60">
           <h3>Techlang</h3>
-          <p>Compiled programming language</p>
+          <p class="project-desc">Compiled programming language</p>
           <div class="project-links">
-            <a href="https://github.com/gummyniki/techlang" target="_blank">
-              <button class="link-button">Techlang GitHub</button>
-            </a>
+            <a href="https://github.com/gummyniki/techlang" target="_blank" class="link-button">GitHub</a>
           </div>
         </div>
 
-        <div class="project-card" data-aos="zoom-in">
+        <div class="project-card" data-aos="fade-up" data-aos-delay="120">
           <h3>filefetch</h3>
-          <p>Fast CLI system fetch tool</p>
+          <p class="project-desc">Fast CLI system fetch tool</p>
           <div class="project-links">
-            <a href="https://github.com/gummyniki/filefetch" target="_blank">
-              <button class="link-button">filefetch GitHub</button>
-            </a>
-            <a href="https://crates.io/crates/filefetch" target="_blank">
-              <button class="link-button">filefetch Cargo</button>
-            </a>
+            <a href="https://github.com/gummyniki/filefetch" target="_blank" class="link-button">GitHub</a>
+            <a href="https://crates.io/crates/filefetch" target="_blank" class="link-button">Cargo</a>
           </div>
         </div>
 
-        <div class="project-card" data-aos="zoom-in">
+        <div class="project-card" data-aos="fade-up" data-aos-delay="180">
           <h3>software_renderer</h3>
-          <p>Software Renderer written in C</p>
+          <p class="project-desc">Software renderer written in C</p>
           <div class="project-links">
-            <a href="https://github.com/gummyniki/software_renderer" target="_blank">
-              <button class="link-button">software_renderer GitHub</button>
-            </a>
+            <a href="https://github.com/gummyniki/software_renderer" target="_blank" class="link-button">GitHub</a>
           </div>
         </div>
 
-        <div class="project-card" data-aos="zoom-in">
+        <div class="project-card" data-aos="fade-up" data-aos-delay="240">
           <h3>syfo</h3>
-          <p>Minimal GUI system monitor</p>
+          <p class="project-desc">Minimal GUI system monitor</p>
           <div class="project-links">
-            <a href="https://github.com/gummyniki/syfo" target="_blank">
-              <button class="link-button">syfo GitHub</button>
-            </a>
-            <a href="https://crates.io/crates/syfo" target="_blank">
-              <button class="link-button">syfo Cargo</button>
-            </a>
-
+            <a href="https://github.com/gummyniki/syfo" target="_blank" class="link-button">GitHub</a>
+            <a href="https://crates.io/crates/syfo" target="_blank" class="link-button">Cargo</a>
           </div>
-
-          
-
-
         </div>
 
-        <div class="project-card" data-aos="zoom-in">
-        
-
-        <h3>Noto</h3>
-          <p>Simple terminal-based TODO list</p>
-
+        <div class="project-card" data-aos="fade-up" data-aos-delay="300">
+          <h3>Noto</h3>
+          <p class="project-desc">Simple terminal-based TODO list</p>
           <div class="project-links">
-            <a href="https://github.com/gummyniki/noto" target="_blank">
-              <button class="link-button">Noto GitHub</button>
-            </a>
+            <a href="https://github.com/gummyniki/noto" target="_blank" class="link-button">GitHub</a>
           </div>
-
         </div>
 
-
-        <div class="project-card" data-aos="zoom-in">
-        
-
-        <h3>Vortex</h3>
-          <p>2D game engine written from scratch</p>
-
+        <div class="project-card" data-aos="fade-up" data-aos-delay="360">
+          <h3>Vortex</h3>
+          <p class="project-desc">2D game engine written from scratch</p>
           <div class="project-links">
-            <a href="https://github.com/gummyniki/Vortex" target="_blank">
-              <button class="link-button">Vortex GitHub</button>
-            </a>
+            <a href="https://github.com/gummyniki/Vortex" target="_blank" class="link-button">GitHub</a>
           </div>
-
         </div>
 
-        <div class="project-card" data-aos="zoom-in">
-        
-
-        <h3>Asciidraw</h3>
-          <p>very bare-bones ascii renderer</p>
+        <div class="project-card" data-aos="fade-up" data-aos-delay="420">
+          <h3>Asciidraw</h3>
+          <p class="project-desc">Bare-bones ASCII renderer</p>
           <div class="project-links">
-            <a href="https://github.com/gummyniki/Asciidraw" target="_blank">
-              <button class="link-button">Asciidraw GitHub</button>
-            </a>
+            <a href="https://github.com/gummyniki/Asciidraw" target="_blank" class="link-button">GitHub</a>
           </div>
-
         </div>
-
-        <div class="about-container">
-        <a href="about.html">
-          <button class="link-button about">About Me</button>
-        </a>
       </div>
-
-      
-      <div class="about-container">
-        <a href="blog/index.html">
-          <button class="link-button about">Blog</button>
-        </a>
-      </div>
-      
-
-        
-
-      </section>
-    </main>
+    </section>
 
     <footer>
       <p>© 2026 Technick</p>
     </footer>
   </div>
-  <script src="script.js"></script>
+
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
   <script>
-    AOS.init({
-      once: true
-    });
+    AOS.init({ once: true, duration: 450, offset: 40 });
   </script>
-
 </body>
 </html>

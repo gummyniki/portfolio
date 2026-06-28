@@ -3,17 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Journey's end</title>
+  <title>Journey's end | Technick</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="../../style.css">
   <link rel="stylesheet" href="../blog.css">
   <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
 </head>
 <body>
-  <nav><a class="top-buttons" href="../../">← home</a> <a class="top-buttons" href="../">← blog</a></nav>
+  <div class="blog-container">
+    <nav class="site-nav">
+      <a href="../../" class="nav-brand">Technick</a>
+      <div class="nav-links">
+        <a href="../../">Home</a>
+        <a href="../">Blog</a>
+      </div>
+    </nav>
+  </div>
   <article>
-    <h1 data-aos="fade-down">Journey's end</h1>
-    <time data-aos="zoom-out">2026-5-11</time>
-    <p>Hello everyone, today will be my <strong>last devlog</strong> about my game engine. I will talk about how I fixed the remaining bugs in my engine, why I think this is a good place to end it off and what my next project will be. Let&#39;s get started</p>
+    <h1>Journey's end</h1>
+    <time data-aos="fade-right" data-aos-delay="100">2026-5-11</time>
+    <div data-aos="fade-up" data-aos-delay="150"><p>Hello everyone, today will be my <strong>last devlog</strong> about my game engine. I will talk about how I fixed the remaining bugs in my engine, why I think this is a good place to end it off and what my next project will be. Let&#39;s get started</p>
 <hr>
 <p>Starting with the bugs, I had <strong>2 remaining issues</strong>:</p>
 <ol>
@@ -61,14 +71,12 @@
 <h2>Engine Github page <a href="https://github.com/gummyniki/Liminal">here</a></h2>
 <hr>
 <p><em>Goodbye everyone, see you next week.</em></p>
-
+</div>
   </article>
 
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
   <script>
-    AOS.init({
-      once: true
-    });
+    AOS.init({ once: true, duration: 450, offset: 40 });
   </script>
 </body>
 </html>

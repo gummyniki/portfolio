@@ -3,17 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>I'm making a game engine!</title>
+  <title>I'm making a game engine! | Technick</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="../../style.css">
   <link rel="stylesheet" href="../blog.css">
   <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
 </head>
 <body>
-  <nav><a class="top-buttons" href="../../">← home</a> <a class="top-buttons" href="../">← blog</a></nav>
+  <div class="blog-container">
+    <nav class="site-nav">
+      <a href="../../" class="nav-brand">Technick</a>
+      <div class="nav-links">
+        <a href="../../">Home</a>
+        <a href="../">Blog</a>
+      </div>
+    </nav>
+  </div>
   <article>
-    <h1 data-aos="fade-down">I'm making a game engine!</h1>
-    <time data-aos="zoom-out">2026-4-18</time>
-    <p>I&#39;ve been making a game engine for about <em>1 year</em>, and today I started a <em>blog page</em> documenting all my projects, so this one will just explain what I&#39;ve been working on for the past year.</p>
+    <h1>I'm making a game engine!</h1>
+    <time data-aos="fade-right" data-aos-delay="100">2026-4-18</time>
+    <div data-aos="fade-up" data-aos-delay="150"><p>I&#39;ve been making a game engine for about <em>1 year</em>, and today I started a <em>blog page</em> documenting all my projects, so this one will just explain what I&#39;ve been working on for the past year.</p>
 <hr>
 <p>My graphics journey started almost 2 years ago, I don&#39;t remember exactly why, but I&#39;m pretty sure it was because I wanted to create a game engine.</p>
 <p>At first i learnt <a href="www.opengl.com">OpenGL</a> and made a small engine with it. It was pretty cool and I liked it but I felt like I could do more, which was when i discovered <a href="www.vulkan.org">Vulkan</a> and that was when everything changed.</p>
@@ -36,14 +46,12 @@ It has:</p>
 <p>If you want to check out the engine it&#39;s available <a href="github.com/gummyniki/Liminal">here</a>.
 Devlogs should be every week, but sometimes it may take longer if I haven&#39;t done much that week.</p>
 <h3>See you next week!</h3>
-
+</div>
   </article>
 
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
   <script>
-    AOS.init({
-      once: true
-    });
+    AOS.init({ once: true, duration: 450, offset: 40 });
   </script>
 </body>
 </html>

@@ -2,86 +2,44 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog | Technick</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="../style.css">
   <link rel="stylesheet" href="blog.css">
   <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
 </head>
 <body>
-  <nav><a class="top-buttons" href="../index.html">← home</a></nav>
-  <h1 data-aos="fade-up" >Blog</h1>
-  
-    <ul data-aos="fade-up" class="post-list">
-      <li>
-        <time>2026-6-28</time> 
-        <a href="posts/vectec.html">I built a GPU compute language</a>
-      </li>
-    </ul>
-  
+  <div class="blog-container">
+    <nav class="site-nav">
+      <a href="../" class="nav-brand">Technick</a>
+      <div class="nav-links">
+        <a href="../">Home</a>
+        <a href="../about.html">About</a>
+      </div>
+    </nav>
 
-    <ul data-aos="fade-up" class="post-list">
-      <li>
-        <time>2026-6-26</time> 
-        <a href="posts/compiler.html">I built a Programming Language</a>
-      </li>
+    <h1 class="blog-title">Blog</h1>
+    <ul class="post-list" data-aos="fade-up" data-aos-delay="100">
+    <li><time>2026-6-28</time><a href="posts/vectec.html">I built a GPU compute language</a></li>
+    <li><time>2026-6-26</time><a href="posts/compiler.html">I built a Programming Language</a></li>
+    <li><time>2026-6-26</time><a href="posts/software-rendering.html">Software Rendering</a></li>
+    <li><time>2026-6-2</time><a href="posts/new-visions.html">New Visions</a></li>
+    <li><time>2026-5-11</time><a href="posts/journeys-end.html">Journey's end</a></li>
+    <li><time>2026-5-2</time><a href="posts/the-future.html">The Future</a></li>
+    <li><time>2026-4-28</time><a href="posts/physics-hell.html">Physics engine hell</a></li>
+    <li><time>2026-4-18</time><a href="posts/first-devlog.html">I'm making a game engine!</a></li>
     </ul>
-  
 
-    <ul data-aos="fade-up" class="post-list">
-      <li>
-        <time>2026-6-26</time> 
-        <a href="posts/software-rendering.html">Software Rendering</a>
-      </li>
-    </ul>
-  
-
-    <ul data-aos="fade-up" class="post-list">
-      <li>
-        <time>2026-6-2</time> 
-        <a href="posts/new-visions.html">New Visions</a>
-      </li>
-    </ul>
-  
-
-    <ul data-aos="fade-up" class="post-list">
-      <li>
-        <time>2026-5-11</time> 
-        <a href="posts/journeys-end.html">Journey's end</a>
-      </li>
-    </ul>
-  
-
-    <ul data-aos="fade-up" class="post-list">
-      <li>
-        <time>2026-5-2</time> 
-        <a href="posts/the-future.html">The Future</a>
-      </li>
-    </ul>
-  
-
-    <ul data-aos="fade-up" class="post-list">
-      <li>
-        <time>2026-4-28</time> 
-        <a href="posts/physics-hell.html">Physics engine hell</a>
-      </li>
-    </ul>
-  
-
-    <ul data-aos="fade-up" class="post-list">
-      <li>
-        <time>2026-4-18</time> 
-        <a href="posts/first-devlog.html">I'm making a game engine!</a>
-      </li>
-    </ul>
-  
-  <footer>
-    <p>© 2026 Technick</p>
-  </footer>
+    <footer>
+      <p>© 2026 Technick</p>
+    </footer>
+  </div>
 
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
   <script>
-    AOS.init({
-      once: true
-    });
+    AOS.init({ once: true, duration: 450, offset: 40 });
   </script>
 </body>
 </html>

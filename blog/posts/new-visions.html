@@ -3,17 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>New Visions</title>
+  <title>New Visions | Technick</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="../../style.css">
   <link rel="stylesheet" href="../blog.css">
   <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
 </head>
 <body>
-  <nav><a class="top-buttons" href="../../">← home</a> <a class="top-buttons" href="../">← blog</a></nav>
+  <div class="blog-container">
+    <nav class="site-nav">
+      <a href="../../" class="nav-brand">Technick</a>
+      <div class="nav-links">
+        <a href="../../">Home</a>
+        <a href="../">Blog</a>
+      </div>
+    </nav>
+  </div>
   <article>
-    <h1 data-aos="fade-down">New Visions</h1>
-    <time data-aos="zoom-out">2026-6-2</time>
-    <p>Hey everyone, it&#39;s been a while, hasn&#39;t it? About 3 weeks i think, sorry about that, but I have a good reason for it.</p>
+    <h1>New Visions</h1>
+    <time data-aos="fade-right" data-aos-delay="100">2026-6-2</time>
+    <div data-aos="fade-up" data-aos-delay="150"><p>Hey everyone, it&#39;s been a while, hasn&#39;t it? About 3 weeks i think, sorry about that, but I have a good reason for it.</p>
 <blockquote>
 <p>It looks like the best ideas are never the first ones.</p>
 </blockquote>
@@ -46,14 +56,12 @@
 <p>I think that&#39;s about it for today, it was a short blog but I had to get it out as soon as possible. As for the next blog, I&#39;m not sure, but it will be a good one, I promise.</p>
 <p>I set up the project&#39;s github already, and you can check it out <a href="https://github.com/gummyniki/software_renderer">here</a></p>
 <p><em>Goodbye!</em></p>
-
+</div>
   </article>
 
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
   <script>
-    AOS.init({
-      once: true
-    });
+    AOS.init({ once: true, duration: 450, offset: 40 });
   </script>
 </body>
 </html>

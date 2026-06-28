@@ -3,17 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Software Rendering</title>
+  <title>Software Rendering | Technick</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="../../style.css">
   <link rel="stylesheet" href="../blog.css">
   <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
 </head>
 <body>
-  <nav><a class="top-buttons" href="../../">← home</a> <a class="top-buttons" href="../">← blog</a></nav>
+  <div class="blog-container">
+    <nav class="site-nav">
+      <a href="../../" class="nav-brand">Technick</a>
+      <div class="nav-links">
+        <a href="../../">Home</a>
+        <a href="../">Blog</a>
+      </div>
+    </nav>
+  </div>
   <article>
-    <h1 data-aos="fade-down">Software Rendering</h1>
-    <time data-aos="zoom-out">2026-6-26</time>
-    <p>Hey guys! It&#39;s been a while hasn&#39;t it? about 3 weeks. There has been a lot of stuff in the works, but this blog is primarily focused on my software renderer I announced last blog.</p>
+    <h1>Software Rendering</h1>
+    <time data-aos="fade-right" data-aos-delay="100">2026-6-26</time>
+    <div data-aos="fade-up" data-aos-delay="150"><p>Hey guys! It&#39;s been a while hasn&#39;t it? about 3 weeks. There has been a lot of stuff in the works, but this blog is primarily focused on my software renderer I announced last blog.</p>
 <hr>
 <h2>The software renderer</h2>
 <p>I announced last blog that I wanted to make a software renderer, and I did, in a couple of days. it&#39;s not super advanced but for a couple of days i think its good.
@@ -58,14 +68,12 @@ In fact, I already have. The past few days I&#39;ve worked on a compiler for my 
 <hr>
 <p>That was about it. Make sure to check out the software renderer github and the compiler later today!</p>
 <h2>Renderer Github page <a href="https://github.com/gummyniki/software_renderer">here</a></h2>
-
+</div>
   </article>
 
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
   <script>
-    AOS.init({
-      once: true
-    });
+    AOS.init({ once: true, duration: 450, offset: 40 });
   </script>
 </body>
 </html>

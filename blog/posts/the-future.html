@@ -3,17 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Future</title>
+  <title>The Future | Technick</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="../../style.css">
   <link rel="stylesheet" href="../blog.css">
   <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
 </head>
 <body>
-  <nav><a class="top-buttons" href="../../">← home</a> <a class="top-buttons" href="../">← blog</a></nav>
+  <div class="blog-container">
+    <nav class="site-nav">
+      <a href="../../" class="nav-brand">Technick</a>
+      <div class="nav-links">
+        <a href="../../">Home</a>
+        <a href="../">Blog</a>
+      </div>
+    </nav>
+  </div>
   <article>
-    <h1 data-aos="fade-down">The Future</h1>
-    <time data-aos="zoom-out">2026-5-2</time>
-    <p>Hello everyone! Today&#39;s blog post won&#39;t be <em>too</em> technical but instead will be discussing the <em>future</em> of this engine and what will come next.</p>
+    <h1>The Future</h1>
+    <time data-aos="fade-right" data-aos-delay="100">2026-5-2</time>
+    <div data-aos="fade-up" data-aos-delay="150"><p>Hello everyone! Today&#39;s blog post won&#39;t be <em>too</em> technical but instead will be discussing the <em>future</em> of this engine and what will come next.</p>
 <hr>
 <p>So as I&#39;ve previously said, I started learning graphics almost <em>2 years ago</em> and started making this engine almost <em>a year ago</em>, and it has been mostly the only thing I&#39;ve worked on.</p>
 <p>It has been really fun and I&#39;ve been enjoying every moment, but at some point everything gets boring.
@@ -29,14 +39,12 @@ I won&#39;t go into too much detail about the bug I solved as that&#39;s for the
 <p>I think that will be it for today, I will see you sometime next week, <strong>see ya!</strong></p>
 <hr>
 <h2>Engine Github page <a href="https://github.com/gummyniki/Liminal">here</a></h2>
-
+</div>
   </article>
 
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
   <script>
-    AOS.init({
-      once: true
-    });
+    AOS.init({ once: true, duration: 450, offset: 40 });
   </script>
 </body>
 </html>

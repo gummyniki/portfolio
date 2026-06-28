@@ -3,17 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>I built a GPU compute language</title>
+  <title>I built a GPU compute language | Technick</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="../../style.css">
   <link rel="stylesheet" href="../blog.css">
   <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
 </head>
 <body>
-  <nav><a class="top-buttons" href="../../">← home</a> <a class="top-buttons" href="../">← blog</a></nav>
+  <div class="blog-container">
+    <nav class="site-nav">
+      <a href="../../" class="nav-brand">Technick</a>
+      <div class="nav-links">
+        <a href="../../">Home</a>
+        <a href="../">Blog</a>
+      </div>
+    </nav>
+  </div>
   <article>
-    <h1 data-aos="fade-down">I built a GPU compute language</h1>
-    <time data-aos="zoom-out">2026-6-28</time>
-    <p>Hey guys! Big news today: VecTec is officially working.</p>
+    <h1>I built a GPU compute language</h1>
+    <time data-aos="fade-right" data-aos-delay="100">2026-6-28</time>
+    <div data-aos="fade-up" data-aos-delay="150"><p>Hey guys! Big news today: VecTec is officially working.</p>
 <p>If you&#39;ve been following my blog you know I&#39;ve been building 
 Techlang, my own compiled programming language. 
 If you haven&#39;t, go check out the previous blog posts first,
@@ -195,14 +205,12 @@ complex algorithms</li>
 <p>Techlang and VecTec are both open source and available on GitHub.
 You&#39;ll need an NVIDIA GPU and the CUDA toolkit installed.</p>
 <h2>GitHub <a href="https://github.com/gummyniki/techlang">here</a></h2>
-
+</div>
   </article>
 
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
   <script>
-    AOS.init({
-      once: true
-    });
+    AOS.init({ once: true, duration: 450, offset: 40 });
   </script>
 </body>
 </html>

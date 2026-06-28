@@ -3,17 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>I built a Programming Language</title>
+  <title>I built a Programming Language | Technick</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="../../style.css">
   <link rel="stylesheet" href="../blog.css">
   <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
 </head>
 <body>
-  <nav><a class="top-buttons" href="../../">← home</a> <a class="top-buttons" href="../">← blog</a></nav>
+  <div class="blog-container">
+    <nav class="site-nav">
+      <a href="../../" class="nav-brand">Technick</a>
+      <div class="nav-links">
+        <a href="../../">Home</a>
+        <a href="../">Blog</a>
+      </div>
+    </nav>
+  </div>
   <article>
-    <h1 data-aos="fade-down">I built a Programming Language</h1>
-    <time data-aos="zoom-out">2026-6-26</time>
-    <p>Hey guys! As promised, here&#39;s the compiler blog.
+    <h1>I built a Programming Language</h1>
+    <time data-aos="fade-right" data-aos-delay="100">2026-6-26</time>
+    <div data-aos="fade-up" data-aos-delay="150"><p>Hey guys! As promised, here&#39;s the compiler blog.
 If you haven&#39;t read the previous blog, go check it out first,
 this one is going to be a long one.</p>
 <hr>
@@ -236,14 +246,12 @@ build one — even a tiny one.
 You&#39;ll learn more about how programming languages actually work 
 than any book or course can teach you.</p>
 <h2>Techlang GitHub page <a href="https://github.com/gummyniki/techlang">here</a></h2>
-
+</div>
   </article>
 
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
   <script>
-    AOS.init({
-      once: true
-    });
+    AOS.init({ once: true, duration: 450, offset: 40 });
   </script>
 </body>
 </html>
